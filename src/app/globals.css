@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+/* ===== Design Tokens ===== */
+@theme {
+  /* Warm Gold / Coral / Cream palette — celebratory but restrained */
+  --color-jashn-gold: #c9973a;
+  --color-jashn-gold-light: #e8c47a;
+  --color-jashn-gold-dark: #9a6e1e;
+  --color-jashn-coral: #e05c3a;
+  --color-jashn-coral-light: #f08060;
+  --color-jashn-cream: #fdf8f0;
+  --color-jashn-cream-dark: #f5eddb;
+  --color-jashn-charcoal: #2c2416;
+  --color-jashn-charcoal-mid: #4a3f2e;
+  --color-jashn-muted: #8a7a65;
+
+  /* Semantic tokens (light mode defaults) */
+  --color-bg: var(--color-jashn-cream);
+  --color-bg-card: #ffffff;
+  --color-bg-subtle: var(--color-jashn-cream-dark);
+  --color-text: var(--color-jashn-charcoal);
+  --color-text-muted: var(--color-jashn-muted);
+  --color-accent: var(--color-jashn-gold);
+  --color-accent-light: var(--color-jashn-gold-light);
+  --color-accent-dark: var(--color-jashn-gold-dark);
+  --color-danger: #c0392b;
+  --color-success: #27ae60;
+  --color-warning: #e67e22;
+  --color-border: #d4c5a9;
+  --color-focus: var(--color-jashn-gold-dark);
+
+  /* Typography */
+  --font-display: "Georgia", "Times New Roman", serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Spacing */
+  --radius: 0.5rem;
+  --radius-lg: 1rem;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-focus: 0 0 0 3px var(--color-focus);
+}
+
+/* Dark mode tokens */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #1a1510;
+    --color-bg-card: #251e14;
+    --color-bg-subtle: #2e2618;
+    --color-text: #f0e8d8;
+    --color-text-muted: #a89880;
+    --color-accent: var(--color-jashn-gold-light);
+    --color-accent-dark: var(--color-jashn-gold);
+    --color-border: #4a3f2e;
+  }
+}
+
+[data-theme="dark"] {
+  --color-bg: #1a1510;
+  --color-bg-card: #251e14;
+  --color-bg-subtle: #2e2618;
+  --color-text: #f0e8d8;
+  --color-text-muted: #a89880;
+  --color-accent: var(--color-jashn-gold-light);
+  --color-accent-dark: var(--color-jashn-gold);
+  --color-border: #4a3f2e;
+}
+
+/* ===== Base Styles ===== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: 0.75rem 1rem;
+  background: var(--color-accent);
+  color: var(--color-charcoal);
+  font-weight: 600;
+  z-index: 9999;
+  border-radius: 0 0 var(--radius) 0;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Minimum touch target */
+button,
+[role="button"],
+input[type="checkbox"],
+input[type="radio"],
+a {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ===== Print Styles ===== */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+    color: black;
+    font-size: 12pt;
+  }
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+}
+
+/* ===== Screen Reader Only ===== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
