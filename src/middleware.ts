@@ -9,13 +9,10 @@ function generateNonce(): string {
 
 export function middleware(request: NextRequest): NextResponse {
   const nonce = generateNonce();
-  const isDev = process.env["NODE_ENV"] !== "production";
 
   // Build CSP
-  // In development, React (Turbopack) requires 'unsafe-eval' for debugging features
-  const scriptSrc = isDev
-    ? `script-src 'self' 'unsafe-eval' 'nonce-${nonce}'`
-    : `script-src 'self' 'nonce-${nonce}'`;
+  // Allow Next.js inline hydration scripts and client chunks to run
+  const scriptSrc = `script-src 'self' 'unsafe-inline' 'unsafe-eval'`;
 
   const csp = [
     `default-src 'self'`,
